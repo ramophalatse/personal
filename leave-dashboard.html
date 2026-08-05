@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leave Dashboard : 2025 – 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+
+  :root {
+    --green-dark: #10a867;
+    --green-mid: #004f33;
+    --green-light: #00C853;
+    --green-pale: #e8f5ee;
+    --green-muted: #c8e6d6;
+    --ramo: #10a867;
+    --terry: #c55de8;
+    --terry-dark: #531959;
+    --nadene: #ea614d;
+    --nadene-dark: #802902;
+    --bg: #f7faf8;
+    --surface: #ffffff;
+    --border: #d4e8dc;
+    --text: #1a2e24;
+    --text-muted: #5a7a68;
+    --text-light: #8aaa96;
+
+    --cal-h0: #f3f6f4;
+    --cal-h1: #cdeadd;
+    --cal-h2: #8fd2b3;
+    --cal-h3: #43ab7e;
+    --cal-h4: #006341;
+    --cal-na: #fafafa;
+    --planned: #a8e6c3;
+    --planned-border: #4caf7d;
+    --holiday: #EDDFCE;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Libre Franklin', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 48px 32px;
+  }
+
+  .header {
+    margin-bottom: 40px;
+  }
+
+  .header-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--green-light);
+    margin-bottom: 8px;
+  }
+
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--green-dark);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  h1 span {
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+
+  .subtitle {
+    margin-top: 6px;
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 36px;
+    flex-wrap: wrap;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  /* Summary cards */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .card.ramo::before { background: var(--ramo); }
+  .card.terry::before { background: var(--terry); }
+  .card.nadene::before { background: var(--nadene); }
+
+  .card-name {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 16px;
+  }
+
+  .card-years {
+    display: flex;
+    gap: 20px;
+  }
+
+  .card-year {
+    flex: 1;
+  }
+
+  .card-year-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 4px;
+  }
+
+  .card-days {
+    font-family: 'DM Mono', monospace;
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+
+  .card.ramo .card-days { color: var(--ramo); }
+  .card.terry .card-days { color: var(--terry-dark); }
+  .card.nadene .card-days { color: var(--nadene-dark); }
+
+  .card-days-label {
+    font-size: 11px;
+    color: var(--text-light);
+  }
+
+  .card-divider {
+    width: 1px;
+    background: var(--border);
+    align-self: stretch;
+  }
+
+  .card-avg {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .card-avg-label {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .card-avg-val {
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .card-days-proj {
+    font-family: 'DM Mono', monospace;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--planned-border);
+    margin-left: 6px;
+  }
+
+  .card-avg-proj {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--planned-border);
+    margin-left: 8px;
+  }
+
+  /* Annual leave calendar */
+  .cal-legend {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin: 0 0 20px;
+    padding: 14px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .cal-legend-group { display: flex; align-items: center; gap: 7px; }
+  .cal-legend-scale { display: flex; gap: 4px; align-items: center; }
+  .cal-legend-swatch { width: 14px; height: 14px; border-radius: 4px; border: 1px solid var(--border); }
+  .cal-legend-people { display: flex; gap: 14px; }
+  .cal-legend-person { display: flex; align-items: center; gap: 5px; }
+  .cal-legend-person-dot { width: 9px; height: 9px; border-radius: 50%; }
+
+  .year-block { margin-bottom: 40px; }
+  .year-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--green-dark);
+    margin-bottom: 4px;
+  }
+  .year-total { font-size: 12px; color: var(--text-muted); margin-bottom: 16px; }
+  .year-total strong { color: var(--green-dark); font-weight: 700; }
+
+  .year-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .month {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 10px 8px;
+  }
+  .month.na { border-style: dashed; background: var(--cal-na); }
+
+  .month-head { margin-bottom: 6px; }
+  .month-name { font-size: 11px; font-weight: 700; color: var(--green-dark); letter-spacing: 0.01em; }
+  .month.na .month-name { color: var(--text-light); }
+
+  .month.h1 { background: linear-gradient(180deg, #f6fbf8 0%, var(--surface) 56px); }
+  .month.h2 { background: linear-gradient(180deg, #eef8f2 0%, var(--surface) 56px); }
+  .month.h3 { background: linear-gradient(180deg, #e3f4ea 0%, var(--surface) 56px); }
+  .month.h4 { background: linear-gradient(180deg, #d7efe0 0%, var(--surface) 56px); }
+
+  .dow, .week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; }
+  .dow span { font-size: 7px; font-weight: 600; text-align: center; color: var(--text-light); padding-bottom: 2px; }
+  .week { margin-top: 1px; }
+  .week > .day { grid-row: 1; }
+  .day {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    text-align: center;
+    line-height: 16px;
+    height: 16px;
+    color: var(--text);
+    border-radius: 3px;
+  }
+  .day.pad { color: transparent; }
+  .day.marked {
+    background: var(--green-light);
+    color: #fff;
+    font-weight: 700;
+    font-size: 8px;
+    display: block;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    margin: 0 auto;
+    border-radius: 50%;
+  }
+  .day.planned {
+    background: var(--planned);
+    color: var(--green-dark);
+    font-weight: 700;
+    font-size: 8px;
+    display: block;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    margin: 0 auto;
+    border-radius: 50%;
+  }
+  .month.planned { border-style: dashed; }
+
+  .day.holiday {
+    background: var(--holiday);
+    color: var(--text);
+    font-weight: 600;
+    font-size: 8px;
+    display: block;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    margin: 0 auto;
+    border-radius: 50%;
+  }
+
+  /* Sequential leave days: one continuous bar (grid-spanning, rounded end caps) sits
+     behind the day numbers, which are rendered transparent so the bar shows through. */
+  .day.marked.run-start,
+  .day.marked.run-mid,
+  .day.marked.run-end {
+    background: none;
+    width: auto;
+    height: 16px;
+    margin: 0;
+    border-radius: 0;
+    color: #fff;
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+  }
+  .day.planned.run-start,
+  .day.planned.run-mid,
+  .day.planned.run-end {
+    background: none;
+    width: auto;
+    height: 16px;
+    margin: 0;
+    border-radius: 0;
+    color: var(--green-dark);
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+  }
+  .leave-bar {
+    grid-row: 1;
+    height: 16px;
+    align-self: center;
+    border-radius: 8px;
+    z-index: 0;
+  }
+  .leave-bar.marked { background: var(--green-light); }
+  .leave-bar.planned { background: var(--planned); }
+
+  .pbars { margin-top: 8px; padding-top: 7px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 3px; }
+  .pbar-row { display: grid; grid-template-columns: 10px 1fr 20px; align-items: center; gap: 5px; }
+  .pbar-label { font-size: 8px; font-weight: 700; color: var(--text-light); text-align: center; }
+  .pbar-track { height: 5px; background: var(--cal-h0); border-radius: 3px; overflow: hidden; }
+  .pbar-fill { height: 100%; border-radius: 3px; }
+  .pbar-fill.ramo { background: var(--ramo); }
+  .pbar-fill.terry { background: var(--terry); }
+  .pbar-fill.nadene { background: var(--nadene); }
+  .pbar-fill.planned { background: var(--planned); }
+  .pbar-val { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--text-muted); text-align: right; }
+  .pbar-row.na .pbar-val { color: var(--text-light); font-style: italic; }
+
+  @media (max-width: 900px) {
+    .year-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 520px) {
+    .year-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Monthly breakdown table */
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+
+  /* Bar chart */
+  .chart-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 40px;
+  }
+
+  .chart-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .chart-sub {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+  }
+
+  .bar-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .bar-group {
+    display: grid;
+    grid-template-columns: 80px 1fr 80px;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .bar-group-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-align: right;
+  }
+
+  .bar-track {
+    height: 28px;
+    background: var(--green-pale);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    transition: width 0.8s ease;
+  }
+
+  .bar-fill.ramo { background: var(--ramo); }
+  .bar-fill.terry { background: var(--terry); }
+  .bar-fill.nadene { background: var(--nadene); }
+
+  .bar-fill.lighter { opacity: 0.45; }
+
+  .bar-value {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .chart-year-labels {
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    justify-content: flex-end;
+  }
+
+  .chart-year-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .chart-year-badge .swatch {
+    width: 20px;
+    height: 8px;
+    border-radius: 2px;
+  }
+
+  .swatch.full { opacity: 1; }
+  .swatch.light { opacity: 0.45; }
+
+  /* Note */
+  .note {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 11px;
+    color: #92400e;
+    line-height: 1.6;
+  }
+
+  .note strong { font-weight: 600; }
+
+  @media (max-width: 720px) {
+    .cards { grid-template-columns: 1fr; }
+    body { padding: 24px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-label">Nedbank Design Studio</div>
+  <h1>Leave Summary <span>2025 & 2026</span></h1>
+  <p class="subtitle">Ramo Phalatse · Taylor Bennett · Nina Brooks — extracted from HR calendar screenshots</p>
+</div>
+
+<!-- Summary Cards -->
+<div class="legend">
+  <div class="legend-item">
+    <div class="legend-dot" style="background:#006341"></div>
+    Ramo Phalatse
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:#c55de8"></div>
+    Taylor Bennett
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:#ea614d"></div>
+    Nina Brooks
+  </div>
+</div>
+
+<div class="cards">
+  <!-- Ramo -->
+  <div class="card ramo">
+    <div class="card-name">Ramo Phalatse</div>
+    <div class="card-years">
+      <div class="card-year">
+        <div class="card-year-label">2025</div>
+        <div class="card-days">40</div>
+        <div class="card-days-label">days</div>
+      </div>
+      <div class="card-divider"></div>
+      <div class="card-year">
+        <div class="card-year-label">2026 YTD</div>
+        <div class="card-days">28<span class="card-days-proj" title="Projected full-year total, including planned Sep–Dec leave">→42*</span></div>
+        <div class="card-days-label">days (Jan–Aug)</div>
+      </div>
+    </div>
+    <div class="card-avg">
+      <div class="card-avg-label">2026 monthly avg</div>
+      <div class="card-avg-val">3.5 days<span class="card-avg-proj" title="Projected monthly average for the full year">→3.5*</span></div>
+    </div>
+  </div>
+
+  <!-- Taylor -->
+  <div class="card terry">
+    <div class="card-name">Taylor Bennett</div>
+    <div class="card-years">
+      <div class="card-year">
+        <div class="card-year-label">2025</div>
+        <div class="card-days">41</div>
+        <div class="card-days-label">days</div>
+      </div>
+      <div class="card-divider"></div>
+      <div class="card-year">
+        <div class="card-year-label">2026 YTD</div>
+        <div class="card-days">27</div>
+        <div class="card-days-label">days (Jan–Aug)</div>
+      </div>
+    </div>
+    <div class="card-avg">
+      <div class="card-avg-label">2026 monthly avg</div>
+      <div class="card-avg-val">3.4 days</div>
+    </div>
+  </div>
+
+  <!-- Nina -->
+  <div class="card nadene">
+    <div class="card-name">Nina Brooks</div>
+    <div class="card-years">
+      <div class="card-year">
+        <div class="card-year-label">2025</div>
+        <div class="card-days">44</div>
+        <div class="card-days-label">days</div>
+      </div>
+      <div class="card-divider"></div>
+      <div class="card-year">
+        <div class="card-year-label">2026 YTD</div>
+        <div class="card-days">34</div>
+        <div class="card-days-label">days (Jan–Aug)</div>
+      </div>
+    </div>
+    <div class="card-avg">
+      <div class="card-avg-label">2026 monthly avg</div>
+      <div class="card-avg-val">4.3 days</div>
+    </div>
+  </div>
+</div>
+
+<!-- Chart -->
+<p class="section-title">Average leave days per month by person & year</p>
+<div class="chart-wrap">
+  <div class="chart-title">Monthly Leave Average Comparison</div>
+  <div class="chart-sub">2025 full year vs 2026 YTD (Jan–Aug, all three). "2026 Proj." (Ramo only, light green*) blends actual Jan–Aug with planned Sep–Dec from the 2026 leave plan. Max scale: 5 days/month.</div>
+
+  <div class="bar-chart">
+
+    <!-- Ramo -->
+    <div style="margin-bottom:4px; font-size:11px; font-weight:700; color:var(--text-muted); letter-spacing:0.08em; text-transform:uppercase;">Ramo Phalatse</div>
+    <div class="bar-group">
+      <div class="bar-group-label">2025</div>
+      <div class="bar-track">
+        <div class="bar-fill ramo lighter" style="width:66%"></div>
+        <!-- 3.3/5 = 66% -->
+      </div>
+      <div class="bar-value">3.3 days/mo</div>
+    </div>
+    <div class="bar-group">
+      <div class="bar-group-label">2026 YTD</div>
+      <div class="bar-track">
+        <div class="bar-fill ramo" style="width:70%"></div>
+        <!-- 3.5/5 = 70% -->
+      </div>
+      <div class="bar-value">3.5 days/mo</div>
+    </div>
+    <div class="bar-group">
+      <div class="bar-group-label">2026 Proj.</div>
+      <div class="bar-track">
+        <div class="bar-fill planned" style="width:70%"></div>
+        <!-- 3.5/5 = 70% -->
+      </div>
+      <div class="bar-value">3.5 days/mo*</div>
+    </div>
+
+    <div style="height:8px"></div>
+
+    <!-- Taylor -->
+    <div style="margin-bottom:4px; font-size:11px; font-weight:700; color:var(--text-muted); letter-spacing:0.08em; text-transform:uppercase;">Taylor Bennett</div>
+    <div class="bar-group">
+      <div class="bar-group-label">2025</div>
+      <div class="bar-track">
+        <div class="bar-fill terry lighter" style="width:68%"></div>
+        <!-- 3.4/5 = 68% -->
+      </div>
+      <div class="bar-value">3.4 days/mo</div>
+    </div>
+    <div class="bar-group">
+      <div class="bar-group-label">2026 YTD</div>
+      <div class="bar-track">
+        <div class="bar-fill terry" style="width:68%"></div>
+        <!-- 3.4/5 = 68% -->
+      </div>
+      <div class="bar-value">3.4 days/mo</div>
+    </div>
+
+    <div style="height:8px"></div>
+
+    <!-- Nina -->
+    <div style="margin-bottom:4px; font-size:11px; font-weight:700; color:var(--text-muted); letter-spacing:0.08em; text-transform:uppercase;">Nina Brooks</div>
+    <div class="bar-group">
+      <div class="bar-group-label">2025</div>
+      <div class="bar-track">
+        <div class="bar-fill nadene lighter" style="width:74%"></div>
+        <!-- 3.7/5 = 74% -->
+      </div>
+      <div class="bar-value">3.7 days/mo</div>
+    </div>
+    <div class="bar-group">
+      <div class="bar-group-label">2026 YTD</div>
+      <div class="bar-track">
+        <div class="bar-fill nadene" style="width:86%"></div>
+        <!-- 4.3/5 = 86% -->
+      </div>
+      <div class="bar-value">4.3 days/mo</div>
+    </div>
+
+  </div>
+
+  <div class="chart-year-labels">
+    <div class="chart-year-badge">
+      <div class="swatch full" style="background:#10a867; opacity:0.45"></div>
+      2025 (full year)
+    </div>
+    <div class="chart-year-badge">
+      <div class="swatch full" style="background:#10a867"></div>
+      2026 YTD (coverage varies by person)
+    </div>
+  </div>
+</div>
+
+<!-- Annual Leave Calendar -->
+<p class="section-title">Monthly breakdown — annual calendar view</p>
+
+<div class="cal-legend">
+  <div class="cal-legend-group">
+    <span>Ramo shading (days/month):</span>
+    <div class="cal-legend-scale">
+      <div class="cal-legend-swatch" style="background:var(--cal-h0)"></div><span>0</span>
+      <div class="cal-legend-swatch" style="background:var(--cal-h1)"></div><span>1–2</span>
+      <div class="cal-legend-swatch" style="background:var(--cal-h2)"></div><span>3–5</span>
+      <div class="cal-legend-swatch" style="background:var(--cal-h3)"></div><span>6–8</span>
+      <div class="cal-legend-swatch" style="background:var(--cal-h4)"></div><span>9+</span>
+    </div>
+  </div>
+  <div class="cal-legend-group">
+    <div class="cal-legend-person-dot" style="background:var(--green-light); border:1.5px solid #007a3d;"></div>
+    <span>Verified specific leave day (Ramo only — exact date confirmed against HR calendar)</span>
+  </div>
+  <div class="cal-legend-group">
+    <div class="cal-legend-person-dot" style="background:var(--planned); border:1.5px solid var(--planned-border);"></div>
+    <span>Planned leave day (Ramo only — from the 2026 leave plan, Sep–Dec)</span>
+  </div>
+  <div class="cal-legend-group">
+    <div class="cal-legend-swatch" style="background:var(--holiday); border-radius:4px;"></div>
+    <span>South African public holiday</span>
+  </div>
+  <div class="cal-legend-group cal-legend-people">
+    <div class="cal-legend-person"><div class="cal-legend-person-dot" style="background:var(--ramo)"></div>R = Ramo</div>
+    <div class="cal-legend-person"><div class="cal-legend-person-dot" style="background:var(--terry)"></div>T = Taylor</div>
+    <div class="cal-legend-person"><div class="cal-legend-person-dot" style="background:var(--nadene)"></div>N = Nina</div>
+  </div>
+  <div class="cal-legend-group">
+    <div class="cal-legend-swatch" style="background:var(--cal-na); border-style:dashed;"></div>
+    <span>Not yet logged / no data</span>
+  </div>
+</div>
+
+<div class="year-block">
+  <div class="year-title">2025</div>
+  <div class="year-total">Totals: <strong>Ramo 40</strong> · <strong style="color:var(--terry-dark)">Taylor 41</strong> · <strong style="color:var(--nadene-dark)">Nina 44</strong> days · monthly totals only, exact dates not available for this year</div>
+  <div class="year-grid">
+    <div class="month h1">
+      <div class="month-head"><span class="month-name">January</span></div>
+      <div class="dow"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+      <div class="week"><span class="day pad" style="grid-column:1"></span><span class="day pad" style="grid-column:2"></span><span class="day holiday" style="grid-column:3">1</span><span class="day" style="grid-column:4">2</span><span class="day" style="grid-column:5">3</span><span class="day" style="grid-column:6">4</span><span class="day" style="grid-column:7">5</span></div>
+      <div class="week"><span class="day" style="grid-column:1">6</span><span class="day" style="grid-column:2">7</span><span class="day" style="grid-column:3">8</span><span class="day" style="grid-column:4">9</span><span class="day" style="grid-column:5">10</span><span class="day" style="grid-column:6">11</span><span class="day" style="grid-column:7">12</span></div>
+      <div class="week"><span class="day" style="grid-column:1">13</span><span class="day" style="grid-column:2">14</span><span class="day" style="grid-column:3">15</span><span class="day" style="grid-column:4">16</span><span class="day" style="grid-column:5">17</span><span class="day" style="grid-column:6">18</span><span class="day" style="grid-column:7">19</span></div>
+      <div class="week"><span class="day" style="grid-column:1">20</span><span class="day" style="grid-column:2">21</span><span class="day" style="grid-column:3">22</span><span class="day" style="grid-column:4">23</span><span class="day" style="grid-column:5">24</span><span class="day" style="grid-column:6">25</span><span class="day" style="grid-column:7">26</span></div>
+      <div class="week"><span class="day" style="grid-column:1">27</span><span class="day" style="grid-column:2">28</span><span class="day" style="grid-column:3">29</span><span class="day" style="grid-column:4">30</span><span class="day" style="grid-column:5">31</span><span class="day pad" style="grid-column:6"></span><span class="day pad" style="grid-column:7"></span></div>
+      <div class="pbars">
+        <div class="pbar-row"><span class="pbar-label">R</span><div class="pbar-track"><div class="pbar-fill ramo" style="width:7%"></div></div><span class="pbar-val">1</span></div>
+        <div class="pbar-row"><span class="pbar-label">T</span><div class="pbar-track"><div class="pbar-fill terry" style="width:53%"></div></div><span class="pbar-val">8</span></div>
+        <div class="pbar-row"><span class="pbar-label">N</span><div class="pbar-track"><div class="pbar-fill nadene" style="width:20%"></div></div><span class="pbar-val">3</span></div>
+      </div>
+    </div>
+    <div class="month h1">
+      <div class="month-head"><span class="month-name">February</span></div>
+      <div class="dow"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+      <div class="week"><span class="day pad" style="grid-column:1"></span><span class="day pad" style="grid-column:2"></span><span class="day pad" style="grid-column:3"></span><span class="day pad" style="grid-column:4"></span><span class="day pad" style="grid-column:5"></span><span class="day" style="grid-column:6">1</span><span class="day" style="grid-column:7">2</span></div>
+      <div class="week"><span class="day" style="grid-column:1">3</span><span class="day" style="grid-column:2">4</span><span class="day" style="grid-column:3">5</span><span class="day" style="grid-column:4">6</span><span class="day" style="grid-column:5">7</span><span class="day" style="grid-column:6">8</span><span class="day" style="grid-column:7">9</span></div>
+      <div class="week"><span class="day" style="grid-column:1">10</span><span class="day" style="grid-column:2">11</span><span class="day" style="grid-column:3">12</span><span class="day" style="grid-column:4">13</span><span class="day" style="grid-column:5">14</span><span class="day" style="grid-column:6">15</span><span class="day" style="grid-column:7">16</span></div>
+      <div class="week"><span class="day" style="grid-column:1">17</span><span class="day" style="grid-column:2">18</span><span class="day" style="grid-column:3">19</span><span class="day" style="grid-column:4">20</span><span class="day" style="grid-column:5">21</span><span class="day" style="grid-column:6">22</span><span class="day" style="grid-column:7">23</span></div>
+      <div class="week"><span class="day" style="grid-column:1">24</span><span class="day" style="grid-column:2">25</span><span class="day" style="grid-column:3">26</span><span class="day" style="grid-column:4">27</span><span class="day" style="grid-column:5">28</span><span class="day pad" style="grid-column:6"></span><span class="day pad" style="grid-column:7"></span></div>
+      <div class="pbars">
+        <div class="pbar-row"><span class="pbar-label">R</span><div class="pbar-track"><div class="pbar-fill ramo" style="width:13%"></div></div><span class="pbar-val">2</span></div>
+        <div class="pbar-row"><span class="pbar-label">T</span><div class="pbar-track"><div class="pbar-fill terry" style="width:0%"></div></div><span class="pbar-val">0</span></div>
+        <div class="pbar-row"><span class="pbar-label">N</span><div class="pbar-track"><div class="pbar-fill nadene" style="width:20%"></div></div><span class="pbar-val">3</span></div>
+      </div>
+    </div>
+    <div class="month h3">
+      <div class="month-head"><span class="month-name">March</span></div>
+      <div class="dow"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+      <div class="week"><span class="day pad" style="grid-column:1"></span><span class="day pad" style="grid-column:2"></span><span class="day pad" style="grid-column:3"></span><span class="day pad" style="grid-column:4"></span><span class="day pad" style="grid-column:5"></span><span class="day" style="grid-column:6">1</span><span class="day" style="grid-column:7">2</span></div>
+      <div class="week"><span class="day" style="grid-column:1">3</span><span class="day" style="grid-column:2">4</span><span class="day" style="grid-column:3">5</span><span class="day" style="grid-column:4">6</span><span class="day" style="grid-column:5">7</span><span class="day" style="grid-column:6">8</span><span class="day" style="grid-column:7">9</span></div>
+      <div class="week"><span class="day" style="grid-column:1">10</span><span class="day" style="grid-column:2">11</span><span class="day" style="grid-column:3">12</span><span class="day" style="grid-column:4">13</span><span class="day" style="grid-column:5">14</span><span class="day" style="grid-column:6">15</span><span class="day" style="grid-column:7">16</span></div>
+      <div class="week"><span class="day" style="grid-column:1">17</span><span class="day" style="grid-column:2">18</span><span class="day" style="grid-column:3">19</span><span class="day" style="grid-column:4">20</span><span class="day holiday" style="grid-column:5">21</span><span class="day" style="grid-column:6">22</span><span class="day" style="grid-column:7">23</span></div>
+      <div class="week"><span class="day" style="grid-column:1">24</span><span class="day" style="grid-column:2">25</span><span class="day" style="grid-column:3">26</span><span class="day" style="grid-column:4">27</span><span class="day" style="grid-column:5">28</span><span class="day" style="grid-column:6">29</span><span class="day" style="grid-column:7">30</span></div>
+      <div class="week"><span class="day" style="grid-column:1">31</span><span class="day pad" style="grid-column:2"></span><span class="day pad" style="grid-column:3"></span><span class="day pad" style="grid-column:4"></span><span class="day pad" style="grid-column:5"></span><span class="day pad" style="grid-column:6"></span><span class="day pad" style="grid-column:7"></span></div>
+      <div class="pbars">
+        <div class="pbar-row"><span class="pbar-label">R</span><div class="pbar-track"><div class="pbar-fill ramo" style="width:40%"></div></div><span class="pbar-val">6</span></div>
+        <div class="pbar-row"><span class="pbar-label">T</span><div class="pbar-track"><div class="pbar-fill terry" style="width:7%"></div></div><span class="pbar-val">1</span></div>
+        <div class="pbar-row"><span class="pbar-label">N</span><div class="pbar-track"><div class="pbar-fill nadene" style="width:0%"></div></div><span class="pbar-val">0</span></div>
+      </div>
+    </div>
+    <div class="month h4">
+      <div class="month-head"><span class="month-name">April</span></div>
+      <div class="dow"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+      <div class="week"><span class="day pad" style="grid-column:1"></span><span class="day" style="grid-column:2">1</span><span class="day" style="grid-column:3">2</span><span class="day" style="grid-column:4">3</span><span class="day" style="grid-column:5">4</span><span class="day" style="grid-column:6">5</span><span class="day" style="grid-column:7">6</span></div>
+      <div class="week"><span class="day" style="grid-column:1">7</span><span class="day" style="grid-column:2">8</span><span class="day" style="grid-column:3">9</span><span class="day" style="grid-column:4">10</span><span class="day" style="grid-column:5">11</span><span class="day" style="grid-column:6">12</span><span class="day" style="grid-column:7">13</span></div>
+      <div class="week"><span class="day" style="grid-column:1">14</span><span class="day" style="grid-column:2">15</span><span class="day" style="grid-column:3">16</span><span class="day" style="grid-column:4">17</span><span class="day holiday" style="grid-column:5">18</span><span class="day" style="grid-column:6">19</span><span class="day" style="grid-column:7">20</span></div>
+      <div class="week"><span class="day holiday" style="grid-column:1">21</span><span class="day" style="grid-column:2">22</span><span class="day" style="grid-column:3">23</span><span class="day" style="grid-column:4">24</span><span class="day" style="grid-column:5">25</span><span class="day" style="grid-column:6">26</span><span class="day" style="grid-column:7">27</span></div>
+      <div class="week"><span class="day holiday" style="grid-column:1">28</span><span class="day" style="grid-column:2">29</span><span class="day" style="grid-column:3">30</span><span class="day pad" style="grid-column:4"></span><span class="day pad" style="grid-column:5"></span><span class="day pad" style="grid-column:6"></span><span class="day pad" style="grid-column:7"></span></div>
+      <div class="pbars">
+        <div class="pbar-row"><span class="pbar-label">R</span><div class="pbar-track"><div class="pbar-fill ramo" style="width:67%"></div></div><span class="pbar-val">10</span></div>
+        <div class="pbar-row"><span class="pbar-label">T</span><div class="pbar-track"><div class="pbar-fill terry" style="width:27%"></div></div><span class="pbar-val">4</span></div>
+        <div class="pbar-row"><span class="pbar-label">N</span><div class="pbar-track"><div class="pbar-fill nadene" style="width:33%"></div></div><span class="pbar-val">5</span></div>
+      </div>
+    </div>
+    <div class="month h2">
+      <div class="month-head"><span class="month-name">May</span></div>
+      <div class="dow"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+      <div class="week"><span class="day pad" style="grid-column:1"></span><span class="day pad" style="grid-column:2"></span><span class="day pad" style="grid-column:3"></span><span class="day holiday" style="grid-column:4">1</span><span class="day" style="grid-column:5">2</span><span class="day" style="grid-column:6">3</span><span class="day" style="grid-column:7">4</span></div>
+      <div class="week"><span class="day" style="grid-column:1">5</span><span class="day" style="grid-column:2">6</span><span class="day" style="grid-column:3">7</span><span class="day" style="grid-column:4">8</span><span class="day" style="grid-column:5">9</span><span class="day" style="grid-column:6">10</span><span class="day" style="grid-column:7">11</span></div>
+      <div class="week"><span class="day" style="grid-column:1">12</span><span class="day" style="grid-column:2">13</span><span class="day" style="grid-column:3">14</span><span class="day" style="grid-column:4">15</span><span class="day" style="grid-column:5">16</span><span class="day" style="grid-column:6">17</span><span class="day" style="grid-column:7">18</span></div>
+      <div class="week"><span class="day" style="grid-column:1">19</span><span class="day" style="grid-column:2">20</span><span class="day" style="grid-column:3">21</span><span class="day" style="grid-column:4">22</span><span class="day" style="grid-column:5">23</span><span class="day" style="grid-column:6">24</span><span class="day" style="grid-column:7">25</span></div>
+      <div class="week"><span class="day" style="grid-column:1">26</span><span class="day" style="grid-column:2">27</span><span class="day" style="grid-column:3">28</span><span class="day" style="grid-column:4">29</span><span class="day" style="grid-column:5">30</span><span class="day" style="grid-column:6">31</span><span class="day pad" style="grid-column:7"></span></div>
+      <div class="pbars">
+        <div class="pbar-row"><span class="pbar-label">R</span><div class="pbar-track"><div class="pbar-fill ramo" style="width:27%"></div></div><span class="pbar-val">4</span></div>
+        <div class="pbar-row"><span class="pbar-label">T</span><div class="pbar-track"><div class="pbar-fill terry" style="width:47%"></div></div><span class="pbar-val">7</span></div>
+        <div class="pbar-row"><span class="pbar-label">N</span><div class="pbar-track"><div class="pbar-fill nadene" style="width:0%"></div></div><span class="pbar-val">0</span></div>
+      </div>
+    </div>
+    <div class="month h0">
+      <div class="month-head"><span class="month-name">June</span></div>
+      <div class="dow"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+      <div class="week"><span class="day pad" style="grid-column:1"></span><span class="day pad" style="grid-column:2"></span><span class="day pad" style="grid-column:3"></span><span class="day pad" style="grid-column:4"></span><span class="day pad" style="grid-column:5"></span><span class="day pad" style="grid-column:6"></span><span class="day" style="grid-column:7">1</span></div>
+      <div class="week"><span class="day" style="grid-column:1">2</span><span class="day" style="grid-column:2">3</span><span class="day" style="grid-column:3">4</span><span class="day" style="grid-column:4">5</span><span class="day" style="grid-column:5">6</span><span class="day" style="grid-column:6">7</span><span class="day" style="grid-column:7">8</span></div>
+      <div class="week"><span class="day" style="grid-column:1">9</span><span class="day" style="grid-column:2">10</span><span class="day" style="grid-column:3">11</span><span class="day" style="grid-column:4">12</span><span class="day" style="grid-column:5">13</span><span class="day" style="grid-column:6">14</span><span class="day" style="grid-column:7">15</span></div>
+      <div class="week"><span class="day holiday" style="grid-column:1">16</span><span class="day" style="grid-column:2">17</span><span class="day" style="grid-column:3">18</span><span class="day" style="grid-column:4">19</span><span class="day" style="grid-column:5">20</span><span class="day" style="grid-column:6">21</span><span class="day" style="grid-column:7">22</span></div>
+      <div class="week"><span class="day" style="grid-column:1">23</span><span class="day" style="grid-column:2">24</span><span class="day" style="grid-column:3">25</span><span class="day" style="grid-column:4">26</span><span class="day" style="grid-column:5">27</span><span class="day" style="grid-column:6">28</span><span class="day" style="grid-column:7">29</span></div>
+      <div class="week"><span class="day" style="grid-column:1">30</span><span class="day pad" style="grid-column:2"></span><span class="day pad" style="grid-column:3"></span><span class="day pad" style="grid-column:4"></span><span class="day pad" style="grid-column:5"></span><span class="day pad" style="grid-column:6"></span><span class="day pad" style="grid-column:7"></span></div>
+      <div class="pbars">
+        <div class="pbar-row"><span class="pbar-label">R</span><div class="pbar-track"><div class="pbar-fill ramo" style="width:0%"></div></div><span class="pbar-val">0</span></div>
+        <div class="pbar-row"><span class="pbar-label">T</span><div class="pbar-track"><div class="pbar-fill terry" style="width:7%"></div></div><span class="pbar-val">1</span></div>
+        <div class="pbar-row"><span class="pbar-label">N</span><div class="pbar-track"><div class="pbar-fill nadene" style="width:7%"></div></div><span class="pbar-val">1</span></div>
+      </div>
+    </div>
+    <div class="month h2">
+      <div class="month-head"><span class="month-name">July</span></div>
+      <div class="dow"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+      <div class="week"><span class="day pad" style="grid-column:1"></span><span class="day" style="grid-column:2">1</span><span class="day" style="grid-column:3">2</span><span class="day" style="grid-column:4">3</span><span class="day" style="grid-column:5">4</span><span class="day" style="grid-column:6">5</span><span class="day" style="grid-column:7">6</span></div>
+      <div class="week"><span class="day" style="grid-column:1">7</span><span class="day" style="grid-column:2">8</span><span class="day" style="grid-column:3">9</span><span class="day" style="grid-column:4">10</span><span class="day" style="grid-column:5">11</span><span class="day" style="grid-column:6">12</span><span class="day" style="grid-column:7">13</span></div>
+      <div class="week"><span class="day" style="grid-column:1">14</span><span class="day" style="grid-column:2">15</span><span class="day" style="grid-column:3">16</span><span class="day" style="grid-column:4">17</span><span class="day" style="grid-column:5">18</span><span class="day" style="grid-column:6">19</span><span class="day" style="grid-column:7">20</span></div>
+      <div class="week"><span class="day" style="grid-column:1">21</span><span class="day" style="grid-column:2">22</span><span class="day" style="grid-column:3">23</span><span class="day" style="grid-column:4">24</span><span class="day" style="grid-column:5">25</span><span class="day" style="grid-column:6">26</span><span class="day" style="grid-column:7">27</span></div>
+      <div class="week"><span class="day" style="grid-column:1">28</span><span class="day" style="grid-column:2">29</span><span class="day" style="grid-column:3">30</span><span class="day" style="grid-column:4">31</span><span class="day pad" style="grid-column:5"></span><span class="day pad" style="grid-column:6"></span><span class="day pad" style="grid-column:7"></span></div>
+      <div class="pbars">
+        <div class="pbar-row"><span class="pbar-label">R</span><div class="pbar-track"><div class="pbar-fill ramo" style="width:27%"></div></div><span class="pbar-val">4</span></div>
+        <div class="pbar-row"><span class="pbar-label">T</span><div class="pbar-track"><div class="pbar-fill terry" style="width:47%"></div></div><span class="pbar-val">7</span></div>
+        <div class="pbar-row"><span class="pbar-label">N</span><div class="pbar-track"><div class="pbar-fill nadene" style="width:13%"></div></div><span class="pbar-val">2</span></div>
+      </div>
+    </div>
+    <div class="month h0">
+      <div class="month-head"><span class="month-name">August</span></div>
+      <div class="dow"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+      <div class="week"><span class="day pad" style="grid-column:1"></span><span class="day pad" style="grid-column:2"></span><span class="day pad" style="grid-column:3"></span><span class="day pad" style="grid-column:4"></span><span class="day" style="grid-column:5">1</span><span class="day" style="grid-column:6">2</span><span class="day" style="grid-column:7">3</span></div>
+      <div class="week"><span class="day" style="grid-column:1">4</span><span class="day" style="grid-column:2">5</span><span class="day" style="grid-column:3">6</span><span class="day" style="grid-column:4">7</span><span class="day" style="grid-column:5">8</span><span class="day holiday" style="grid-column:6">9</span><span class="day" style="grid-column:7">10</span></div>
+      <div class="week"><span class="day" style="grid-column:1">11</span><span class="day" style="grid-column:2">12</span><span class="day" style="grid-column:3">13</span><span class="day" style="grid-column:4">14</span><span class="day" style="grid-column:5">15</span><span class="day" style="grid-column:6">16</span><span class="day" style="grid-column:7">17</span></div>
+      <div class="week"><span class="day" style="grid-column:1">18</span><span class="day" style="grid-column:2">19</span><span class="day" style="grid-column:3">20</span><span class="day" style="grid-column:4">21</span><span class="day" style="grid-column:5">22</span><span class="day" style="grid-column:6">23</span><span class="day" style="grid-column:7">24</span></div>
+      <div class="week"><span class="day" style="grid-column:1">25</span><span class="day" style="grid-column:2">26</span><span class="day" style="grid-column:3">27</span><span class="day" style="grid-column:4">28</span><span class="day" style="grid-column:5">29</span><span class="day" style="grid-column:6">30</span><span class="day" style="grid-column:7">31</span></div>
+      <div class="pbars">
+        <div class="pbar-row"><span class="pbar-label">R</span><div class="pbar-track"><div class="pbar-fill ramo" style="width:0%"></div></div><span class="pbar-val">0</span></div>
+        <div class="pbar-row"><span class="pbar-label">T</span><div class="pbar-track"><div class="pbar-fill terry" style="width:0%"></div></div><span class="pbar-val">0</span></div>
+        <div class="pbar-row"><span class="pbar-label">N</span><div class="pbar-track"><div class="pbar-fill nadene" style="width:67%"></div></div><span class="pbar-val">10</span></div>
+      </div>
+    </div>
+    <div class="month h2">
+      <div class="month-head"><span class="month-name">September</span></div>
+      <div class="dow"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+      <div class="week"><span class="day" style="grid-column:1">1</span><span class="day" style="grid-column:2">2</span><span class="day" style="grid-column:3">3</span><span class="day" style="grid-column:4">4</span><span class="day" style="grid-column:5">5</span><span class="day" style="grid-column:6">6</span><span class="day" style="grid-column:7">7</span></div>
+      <div class="week"><span class="day" style="grid-column:1">8</span><span class="day" style="grid-column:2">9</span><span class="day" style="grid-column:3">10</span><span class="day" style="grid-column:4">11</span><span class="day" style="grid-column:5">12</span><span class="day" style="grid-column:6">13</span><span class="day" style="grid-column:7">14</span></div>
+      <div class="week"><span class="day" style="grid-column:1">15</span><span class="day" style="grid-column:2">16</span><span class="day" style="grid-column:3">17</span><span class="day" style="grid-column:4">18</span><span class="day" style="grid-column:5">19</span><span class="day" style="grid-column:6">20</span><span class="day" style="grid-column:7">21</span></div>
+      <div class="week"><span class="day" style="grid-column:1">22</span><span class="day" style="grid-column:2">23</span><span class="day holiday" style="grid-column:3">24</span><span class="day" style="grid-column:4">25</span><span class="day" style="grid-column:5">26</span><span class="day" style="grid-column:6">27</span><span class="day" style="grid-column:7">28</span></div>
+      <div class="week"><span class="day" style="grid-column:1">29</span><span class="day" style="grid-column:2">30</span><span class="day pad" style="grid-column:3"></span><span class="day pad" style="grid-column:4"></span><span class="day pad" style="grid-column:5"></span><span class="day pad" style="grid-column:6"></span><span class="day pad" style="grid-column:7"></span></div>
+      <div class="pbars">
+        <div class="pbar-row"><span class="pbar-label">R</span><div class="pbar-track"><div class="pbar-fill ramo" style="width:27%"></div></div><span class="pbar-val">4</span></div>
+        <div class="pbar-row"><span class="pbar-label">T</span><div class="pbar-track"><div class="pbar-fill terry" style="width:0%"></div></div><span class="pbar-val">0</span></div>
+        <div class="pbar-row"><span class="pbar-label">N</span><div class="pbar-track"><div class="pbar-fill nadene" style="width:7%"></div></div><span class="pbar-val">1</span></div>
+      </div>
+    </div>
+    <div class="month h1">
+      <div class="month-head"><span class="month-name">October</span></div>
+      <div class="dow"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+      <div class="week"><span class="day pad" style="grid-column:1"></span><span class="day pad" style="grid-column:2"></span><span class="day" style="grid-column:3">1</span><span class="day" style="grid-column:4">2</span><span class="day" style="grid-column:5">3</span><span class="day" style="grid-column:6">4</span><span class="day" style="grid-column:7">5</span></div>
+      <div class="week"><span class="day" style="grid-column:1">6</span><span class="day" style="grid-column:2">7</span><span class="day" style="grid-column:3">8</span><span class="day" style="grid-column:4">9</span><span class="day" style="grid-column:5">10</span><span class="day" style="grid-column:6">11</span><span class="day" style="grid-column:7">12</span></div>
+      <div class="week"><span class="day" style="grid-column:1">13</span><span class="day" style="grid-column:2">14</span><span class="day" style="grid-column:3">15</span><span class="day" style="grid-column:4">16</span><span class="day" style="grid-column:5">17</span><span class="day" style="grid-column:6">18</span><span class="day" style="grid-column:7">19</span></div>
+      <div class="week"><span class="day" style="grid-column:1">20</span><span class="day" style="grid-column:2">21</span><span class="day" style="grid-column:3">22</span><span class="day" style="grid-column:4">23</span><span class="day" style="grid-column:5">24</span><span class="day" style="grid-column:6">25</span><span class="day" style="grid-column:7">26</span></div>
+      <div class="week"><span class="day" style="grid-column:1">27</span><span class="day" style="grid-column:2">28</span><span class="day" style="grid-column:3">29</span><span class="day" style="grid-column:4">30</span><span class="day" style="grid-column:5">31</span><span class="day pad" style="grid-column:6"></span><span class="day pad" style="grid-column:7"></span></div>
+      <div class="pbars">
+        <div class="pbar-row"><span class="pbar-label">R</span><div class="pbar-track"><div class="pbar-fill ramo" style="width:7%"></div></div><span class="pbar-val">1</span></div>
+        <div class="pbar-row"><span class="pbar-label">T</span><div class="pbar-track"><div class="pbar-fill terry" style="width:13%"></div></div><span class="pbar-val">2</span></div>
+        <div class="pbar-row"><span class="pbar-label">N</span><div class="pbar-track"><div class="pbar-fill nadene" style="width:27%"></div></div><span class="pbar-val">4</span></div>
+      </div>
+    </div>
+    <div class="month h0">
+      <div class="month-head"><span class="month-name">November</span></div>
+      <div class="dow"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+      <div class="week"><span class="day pad" style="grid-column:1"></span><span class="day pad" style="grid-column:2"></span><span class="day pad" style="grid-column:3"></span><span class="day pad" style="grid-column:4"></span><span class="day pad" style="grid-column:5"></span><span class="day" style="grid-column:6">1</span><span class="day" style="grid-column:7">2</span></div>
+      <div class="week"><span class="day" style="grid-column:1">3</span><span class="day" style="grid-column:2">4</span><span class="day" style="grid-column:3">5</span><span class="day" style="grid-column:4">6</span><span class="day" style="grid-column:5">7</span><span class="day" style="grid-column:6">8</span><span class="day" style="grid-column:7">9</span></div>
+      <div class="week"><span class="day" style="grid-column:1">10</span><span class="day" style="grid-column:2">11</span><span class="day" style="grid-column:3">12</span><span class="day" style="grid-column:4">13</span><span class="day" style="grid-column:5">14</span><span class="day" style="grid-column:6">15</span><span class="day" style="grid-column:7">16</span></div>
+      <div class="week"><span class="day" style="grid-column:1">17</span><span class="day" style="grid-column:2">18</span><span class="day" style="grid-column:3">19</span><span class="day" style="grid-column:4">20</span><span class="day" style="grid-column:5">21</span><span class="day" style="grid-column:6">22</span><span class="day" style="grid-column:7">23</span></div>
+      <div class="week"><span class="day" style="grid-column:1">24</span><span class="day" style="grid-column:2">25</span><span class="day" style="grid-column:3">26</span><span class="day" style="grid-column:4">27</span><span class="day" style="grid-column:5">28</span><span class="day" style="grid-column:6">29</span><span class="day" style="grid-column:7">30</span></div>
+      <div class="pbars">
+        <div class="pbar-row"><span class="pbar-label">R</span><div class="pbar-track"><div class="pbar-fill ramo" style="width:0%"></div></div><span class="pbar-val">0</span></div>
+        <div class="pbar-row"><span class="pbar-label">T</span><div class="pbar-track"><div class="pbar-fill terry" style="width:0%"></div></div><span class="pbar-val">0</span></div>
+        <div class="pbar-row"><span class="pbar-label">N</span><div class="pbar-track"><div class="pbar-fill nadene" style="width:0%"></div></div><span class="pbar-val">0</span></div>
+      </div>
+    </div>
+    <div class="month h3">
+      <div class="month-head"><span class="month-name">December</span></div>
+      <div class="dow"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+      <div class="week"><span class="day" style="grid-column:1">1</span><span class="day" style="grid-column:2">2</span><span class="day" style="grid-column:3">3</span><span class="day" style="grid-column:4">4</span><span class="day" style="grid-column:5">5</span><span class="day" style="grid-column:6">6</span><span class="day" style="grid-column:7">7</span></div>
+      <div class="week"><span class="day" style="grid-column:1">8</span><span class="day" style="grid-column:2">9</span><span class="day" style="grid-column:3">10</span><span class="day" style="grid-column:4">11</span><span class="day" style="grid-column:5">12</span><span class="day" style="grid-column:6">13</span><span class="day" style="grid-column:7">14</span></div>
+      <div class="week"><span class="day" style="grid-column:1">15</span><span class="day holiday" style="grid-column:2">16</span><span class="day" style="grid-column:3">17</span><span class="day" style="grid-column:4">18</span><span class="day" style="grid-column:5">19</span><span class="day" style="grid-column:6">20</span><span class="day" style="grid-column:7">21</span></div>
+      <div class="week"><span class="day" style="grid-column:1">22</span><span class="day" style="grid-column:2">23</span><span class="day" style="grid-column:3">24</span><span class="day holiday" style="grid-column:4">25</span><span class="day holiday" style="grid-column:5">26</span><span class="day" style="grid-column:6">27</span><span class="day" style="grid-column:7">28</span></div>
+      <div class="week"><span class="day" style="grid-column:1">29</span><span class="day" style="grid-column:2">30</span><span class="day" style="grid-column:3">31</span><span class="day pad" style="grid-column:4"></span><span class="day pad" style="grid-column:5"></span><span class="day pad" style="grid-column:6"></span><span class="day pad" style="grid-column:7"></span></div>
+      <div class="pbars">
+        <div class="pbar-row"><span class="pbar-label">R</span><div class="pbar-track"><div class="pbar-fill ramo" style="width:53%"></div></div><span class="pbar-val">8</span></div>
+        <div class="pbar-row"><span class="pbar-label">T</span><div class="pbar-track"><div class="pbar-fill terry" style="width:73%"></div></div><span class="pbar-val">11</span></div>
+        <div class="pbar-row"><span class="pbar-label">N</span><div class="pbar-track"><div class="pbar-fill nadene" style="width:100%"></div></div><span class="pbar-val">15</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="year-block">
+  <div class="year-title">2026</div>
+  <div class="year-total">Totals to date (Jan–Aug, all three): <strong>Ramo 28</strong> · <strong style="color:var(--terry-dark)">Taylor 27</strong> · <strong style="color:var(--nadene-dark)">Nina 34</strong> days · Ramo's planned Sep–Dec (light green, marked *): <strong style="color:var(--planned-border)">14 more days</strong>, projecting to <strong style="color:#dc2626">42 for the year</strong> — 2 days over the 40-day budget</div>
+  <div class="year-grid">
+    <div class="month h0">
+      <div class="month-head"><span class="month-name">January</span></div>
+      <div class="dow"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+      <div class="week"><span class="day pad" style="grid-column:1"></span><span class="day pad" style="grid-column:2"></span><span class="day pad" style="grid-column:3"></span><span class="day holiday" style="grid-column:4">1</span><span class="day" style="grid-column:5">2</span><span class="day" style="grid-column:6">3</span><span class="day" style="grid-column:7">4</span></div>
+      <div class="week"><span class="day" style="grid-column:1">5</span><span class="day" style="grid-column:2">6</span><span class="day" style="grid-column:3">7</span><span class="day" style="grid-column:4">8</span><span class="day" style="grid-column:5">9</span><span class="day" style="grid-column:6">10</span><span class="day" style="grid-column:7">11</span></div>
+      <div class="week"><span class="day" style="grid-column:1">12</span><span class="day" style="grid-column:2">13</span><span class="day" style="grid-column:3">14</span><span class="day" style="grid-column:4">15</span><span class="day" style="grid-column:5">16</span><span class="day" style="grid-column:6">17</span><span class="day" style="grid-column:7">18</span></div>
+      <div class="week"><span class="day" style="grid-column:1">19</span><span class="day" style="grid-column:2">20</span><span class="day" style="grid-column:3">21</span><span class="day" style="grid-column:4">22</span><span class="day" style="grid-column:5">23</span><span class="day" style="grid-column:6">24</span><span class="day" style="grid-column:7">25</span></div>
+      <div class="week"><span class="day" style="grid-column:1">26</span><span class="day" style="grid-column:2">27</span><span class="day" style="grid-column:3">28</span><span class="day" style="grid-column:4">29</span><span class="day" style="grid-column:5">30</span><span class="day" style="grid-column:6">31</span><span class="day pad" style="grid-column:7"></span></div>
+      <div class="pbars">
+        <div class="pbar-row"><span class="pbar-label">R</span><div class="pbar-track"><div class="pbar-fill ramo" style="width:0%"></div></div><span class="pbar-val">0</span></div>
+        <div class="pbar-row"><span class="pbar-label">T</span><div class="pbar-track"><div class="pbar-fill terry" style="width:53%"></div></div><span class="pbar-val">8</span></div>
+        <div class="pbar-row"><span class="pbar-label">N</span><div class="pbar-track"><div class="pbar-fill nadene" style="width:7%"></div></div><span class="pbar-val">1</span></div>
+      </div>
+    </div>
+    <div class="month h3">
+      <div class="month-head"><span class="month-name">February</span></div>
+      <div class="dow"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+      <div class="week"><span class="day pad" style="grid-column:1"></span><span class="day pad" style="grid-column:2"></span><span class="day pad" style="grid-column:3"></span><span class="day pad" style="grid-column:4"></span><span class="day pad" style="grid-column:5"></span><span class="day pad" style="grid-column:6"></span><span class="day" style="grid-column:7">1</span></div>
+      <div class="week"><span class="day" style="grid-column:1">2</span><span class="day" style="grid-column:2">3</span><span class="day" style="grid-column:3">4</span><span class="day" style="grid-column:4">5</span><span class="day" style="grid-column:5">6</span><span class="day" style="grid-column:6">7</span><span class="day" style="grid-column:7">8</span></div>
+      <div class="week"><div class="leave-bar marked" style="grid-column:1 / 6"></div><span class="day marked run-start" style="grid-column:1">9</span><span class="day marked run-mid" style="grid-column:2">10</span><span class="day marked run-mid" style="grid-column:3">11</span><span class="day marked run-mid" style="grid-column:4">12</span><span class="day marked run-end" style="grid-column:5">13</span><span class="day" style="grid-column:6">14</span><span class="day" style="grid-column:7">15</span></div>
+      <div class="week"><span class="day marked" style="grid-column:1">16</span><span class="day" style="grid-column:2">17</span><span class="day" style="grid-column:3">18</span><span class="day" style="grid-column:4">19</span><span class="day" style="grid-column:5">20</span><span class="day" style="grid-column:6">21</span><span class="day" style="grid-column:7">22</span></div>
+      <div class="week"><span class="day" style="grid-column:1">23</span><span class="day" style="grid-column:2">24</span><span class="day" style="grid-column:3">25</span><span class="day" style="grid-column:4">26</span><span class="day" style="grid-column:5">27</span><span class="day" style="grid-column:6">28</span><span class="day pad" style="grid-column:7"></span></div>
+      <div class="pbars">
+        <div class="pbar-row"><span class="pbar-label">R</span><div class="pbar-track"><div class="pbar-fill ramo" style="width:40%"></div></div><span class="pbar-val">6</span></div>
+        <div class="pbar-row"><span class="pbar-label">T</span><div class="pbar-track"><div class="pbar-fill terry" style="width:0%"></div></div><span class="pbar-val">0</span></div>
+        <div class="pbar-row"><span class="pbar-label">N</span><div class="pbar-track"><div class="pbar-fill nadene" style="width:27%"></div></div><span class="pbar-val">4</span></div>
+      </div>
+    </div>
+    <div class="month h1">
+      <div class="month-head"><span class="month-name">March</span></div>
+      <div class="dow"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+      <div class="week"><span class="day pad" style="grid-column:1"></span><span class="day pad" style="grid-column:2"></span><span class="day pad" style="grid-column:3"></span><span class="day pad" style="grid-column:4"></span><span class="day pad" style="grid-column:5"></span><span class="day pad" style="grid-column:6"></span><span class="day" style="grid-column:7">1</span></div>
+      <div class="week"><span class="day" style="grid-column:1">2</span><span class="day" style="grid-column:2">3</span><span class="day" style="grid-column:3">4</span><span class="day marked" style="grid-column:4">5</span><span class="day" style="grid-column:5">6</span><span class="day" style="grid-column:6">7</span><span class="day" style="grid-column:7">8</span></div>
+      <div class="week"><span class="day" style="grid-column:1">9</span><span class="day" style="grid-column:2">10</span><span class="day" style="grid-column:3">11</span><span class="day" style="grid-column:4">12</span><span class="day" style="grid-column:5">13</span><span class="day" style="grid-column:6">14</span><span class="day" style="grid-column:7">15</span></div>
+      <div class="week"><span class="day" style="grid-column:1">16</span><span class="day" style="grid-column:2">17</span><span class="day" style="grid-column:3">18</span><span class="day" style="grid-column:4">19</span><span class="day" style="grid-column:5">20</span><span class="day holiday" style="grid-column:6">21</span><span class="day" style="grid-column:7">22</span></div>
+      <div class="week"><span class="day" style="grid-column:1">23</span><span class="day" style="grid-column:2">24</span><span class="day" style="grid-column:3">25</span><span class="day" style="grid-column:4">26</span><span class="day" style="grid-column:5">27</span><span class="day" style="grid-column:6">28</span><span class="day" style="grid-column:7">29</span></div>
+      <div class="week"><span class="day" style="grid-column:1">30</span><span class="day" style="grid-column:2">31</span><span class="day pad" style="grid-column:3"></span><span class="day pad" style="grid-column:4"></span><span class="day pad" style="grid-column:5"></span><span class="day pad" style="grid-column:6"></span><span class="day pad" style="grid-column:7"></span></div>
+      <div class="pbars">
+        <div class="pbar-row"><span class="pbar-label">R</span><div class="pbar-track"><div class="pbar-fill ramo" style="width:7%"></div></div><span class="pbar-val">1</span></div>
+        <div class="pbar-row"><span class="pbar-label">T</span><div class="pbar-track"><div class="pbar-fill terry" style="width:7%"></div></div><span class="pbar-val">1</span></div>
+        <div class="pbar-row"><span class="pbar-label">N</span><div class="pbar-track"><div class="pbar-fill nadene" style="width:13%"></div></div><span class="pbar-val">2</span></div>
+      </div>
+    </div>
+    <div class="month h3">
+      <div class="month-head"><span class="month-name">April</span></div>
+      <div class="dow"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+      <div class="week"><span class="day pad" style="grid-column:1"></span><span class="day pad" style="grid-column:2"></span><span class="day" style="grid-column:3">1</span><span class="day" style="grid-column:4">2</span><span class="day holiday" style="grid-column:5">3</span><span class="day" style="grid-column:6">4</span><span class="day" style="grid-column:7">5</span></div>
+      <div class="week"><span class="day holiday" style="grid-column:1">6</span><span class="day" style="grid-column:2">7</span><span class="day" style="grid-column:3">8</span><span class="day marked" style="grid-column:4">9</span><span class="day" style="grid-column:5">10</span><span class="day" style="grid-column:6">11</span><span class="day" style="grid-column:7">12</span></div>
+      <div class="week"><span class="day" style="grid-column:1">13</span><span class="day" style="grid-column:2">14</span><span class="day" style="grid-column:3">15</span><span class="day" style="grid-column:4">16</span><span class="day" style="grid-column:5">17</span><span class="day" style="grid-column:6">18</span><span class="day" style="grid-column:7">19</span></div>
+      <div class="week"><div class="leave-bar marked" style="grid-column:2 / 6"></div><span class="day" style="grid-column:1">20</span><span class="day marked run-start" style="grid-column:2">21</span><span class="day marked run-mid" style="grid-column:3">22</span><span class="day marked run-mid" style="grid-column:4">23</span><span class="day marked run-end" style="grid-column:5">24</span><span class="day" style="grid-column:6">25</span><span class="day" style="grid-column:7">26</span></div>
+      <div class="week"><div class="leave-bar marked" style="grid-column:2 / 5"></div><span class="day holiday" style="grid-column:1">27</span><span class="day marked run-start" style="grid-column:2">28</span><span class="day marked run-mid" style="grid-column:3">29</span><span class="day marked run-end" style="grid-column:4">30</span><span class="day pad" style="grid-column:5"></span><span class="day pad" style="grid-column:6"></span><span class="day pad" style="grid-column:7"></span></div>
+      <div class="pbars">
+        <div class="pbar-row"><span class="pbar-label">R</span><div class="pbar-track"><div class="pbar-fill ramo" style="width:53%"></div></div><span class="pbar-val">8</span></div>
+        <div class="pbar-row"><span class="pbar-label">T</span><div class="pbar-track"><div class="pbar-fill terry" style="width:27%"></div></div><span class="pbar-val">4</span></div>
+        <div class="pbar-row"><span class="pbar-label">N</span><div class="pbar-track"><div class="pbar-fill nadene" style="width:33%"></div></div><span class="pbar-val">5</span></div>
+      </div>
+    </div>
+    <div class="month h0">
+      <div class="month-head"><span class="month-name">May</span></div>
+      <div class="dow"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+      <div class="week"><span class="day pad" style="grid-column:1"></span><span class="day pad" style="grid-column:2"></span><span class="day pad" style="grid-column:3"></span><span class="day pad" style="grid-column:4"></span><span class="day holiday" style="grid-column:5">1</span><span class="day" style="grid-column:6">2</span><span class="day" style="grid-column:7">3</span></div>
+      <div class="week"><span class="day" style="grid-column:1">4</span><span class="day" style="grid-column:2">5</span><span class="day" style="grid-column:3">6</span><span class="day" style="grid-column:4">7</span><span class="day" style="grid-column:5">8</span><span class="day" style="grid-column:6">9</span><span class="day" style="grid-column:7">10</span></div>
+      <div class="week"><span class="day" style="grid-column:1">11</span><span class="day" style="grid-column:2">12</span><span class="day" style="grid-column:3">13</span><span class="day" style="grid-column:4">14</span><span class="day" style="grid-column:5">15</span><span class="day" style="grid-column:6">16</span><span class="day" style="grid-column:7">17</span></div>
+      <div class="week"><span class="day" style="grid-column:1">18</span><span class="day" style="grid-column:2">19</span><span class="day" style="grid-column:3">20</span><span class="day" style="grid-column:4">21</span><span class="day" style="grid-column:5">22</span><span class="day" style="grid-column:6">23</span><span class="day" style="grid-column:7">24</span></div>
+      <div class="week"><span class="day" style="grid-column:1">25</span><span class="day" style="grid-column:2">26</span><span class="day" style="grid-column:3">27</span><span class="day" style="grid-column:4">28</span><span class="day" style="grid-column:5">29</span><span class="day" style="grid-column:6">30</span><span class="day" style="grid-column:7">31</span></div>
+      <div class="pbars">
+        <div class="pbar-row"><span class="pbar-label">R</span><div class="pbar-track"><div class="pbar-fill ramo" style="width:0%"></div></div><span class="pbar-val">0</span></div>
+        <div class="pbar-row"><span class="pbar-label">T</span><div class="pbar-track"><div class="pbar-fill terry" style="width:7%"></div></div><span class="pbar-val">1</span></div>
+        <div class="pbar-row"><span class="pbar-label">N</span><div class="pbar-track"><div class="pbar-fill nadene" style="width:27%"></div></div><span class="pbar-val">4</span></div>
+      </div>
+    </div>
+    <div class="month h3">
+      <div class="month-head"><span class="month-name">June</span></div>
+      <div class="dow"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+      <div class="week"><div class="leave-bar marked" style="grid-column:4 / 6"></div><span class="day" style="grid-column:1">1</span><span class="day marked" style="grid-column:2">2</span><span class="day" style="grid-column:3">3</span><span class="day marked run-start" style="grid-column:4">4</span><span class="day marked run-end" style="grid-column:5">5</span><span class="day" style="grid-column:6">6</span><span class="day" style="grid-column:7">7</span></div>
+      <div class="week"><div class="leave-bar marked" style="grid-column:4 / 6"></div><span class="day" style="grid-column:1">8</span><span class="day" style="grid-column:2">9</span><span class="day" style="grid-column:3">10</span><span class="day marked run-start" style="grid-column:4">11</span><span class="day marked run-end" style="grid-column:5">12</span><span class="day" style="grid-column:6">13</span><span class="day" style="grid-column:7">14</span></div>
+      <div class="week"><div class="leave-bar marked" style="grid-column:4 / 6"></div><span class="day marked" style="grid-column:1">15</span><span class="day holiday" style="grid-column:2">16</span><span class="day" style="grid-column:3">17</span><span class="day marked run-start" style="grid-column:4">18</span><span class="day marked run-end" style="grid-column:5">19</span><span class="day" style="grid-column:6">20</span><span class="day" style="grid-column:7">21</span></div>
+      <div class="week"><span class="day" style="grid-column:1">22</span><span class="day" style="grid-column:2">23</span><span class="day" style="grid-column:3">24</span><span class="day" style="grid-column:4">25</span><span class="day" style="grid-column:5">26</span><span class="day" style="grid-column:6">27</span><span class="day" style="grid-column:7">28</span></div>
+      <div class="week"><span class="day" style="grid-column:1">29</span><span class="day" style="grid-column:2">30</span><span class="day pad" style="grid-column:3"></span><span class="day pad" style="grid-column:4"></span><span class="day pad" style="grid-column:5"></span><span class="day pad" style="grid-column:6"></span><span class="day pad" style="grid-column:7"></span></div>
+      <div class="pbars">
+        <div class="pbar-row"><span class="pbar-label">R</span><div class="pbar-track"><div class="pbar-fill ramo" style="width:53%"></div></div><span class="pbar-val">8</span></div>
+        <div class="pbar-row"><span class="pbar-label">T</span><div class="pbar-track"><div class="pbar-fill terry" style="width:60%"></div></div><span class="pbar-val">9</span></div>
+        <div class="pbar-row"><span class="pbar-label">N</span><div class="pbar-track"><div class="pbar-fill nadene" style="width:60%"></div></div><span class="pbar-val">9</span></div>
+      </div>
+    </div>
+    <div class="month h2">
+      <div class="month-head"><span class="month-name">July</span></div>
+      <div class="dow"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+      <div class="week"><span class="day pad" style="grid-column:1"></span><span class="day pad" style="grid-column:2"></span><span class="day" style="grid-column:3">1</span><span class="day" style="grid-column:4">2</span><span class="day" style="grid-column:5">3</span><span class="day" style="grid-column:6">4</span><span class="day" style="grid-column:7">5</span></div>
+      <div class="week"><span class="day" style="grid-column:1">6</span><span class="day" style="grid-column:2">7</span><span class="day" style="grid-column:3">8</span><span class="day" style="grid-column:4">9</span><span class="day" style="grid-column:5">10</span><span class="day" style="grid-column:6">11</span><span class="day" style="grid-column:7">12</span></div>
+      <div class="week"><span class="day marked" style="grid-column:1">13</span><span class="day" style="grid-column:2">14</span><span class="day" style="grid-column:3">15</span><span class="day" style="grid-column:4">16</span><span class="day" style="grid-column:5">17</span><span class="day" style="grid-column:6">18</span><span class="day" style="grid-column:7">19</span></div>
+      <div class="week"><span class="day" style="grid-column:1">20</span><span class="day" style="grid-column:2">21</span><span class="day" style="grid-column:3">22</span><span class="day" style="grid-column:4">23</span><span class="day" style="grid-column:5">24</span><span class="day" style="grid-column:6">25</span><span class="day" style="grid-column:7">26</span></div>
+      <div class="week"><div class="leave-bar marked" style="grid-column:4 / 6"></div><span class="day" style="grid-column:1">27</span><span class="day" style="grid-column:2">28</span><span class="day" style="grid-column:3">29</span><span class="day marked run-start" style="grid-column:4">30</span><span class="day marked run-end" style="grid-column:5">31</span><span class="day pad" style="grid-column:6"></span><span class="day pad" style="grid-column:7"></span></div>
+      <div class="pbars">
+        <div class="pbar-row"><span class="pbar-label">R</span><div class="pbar-track"><div class="pbar-fill ramo" style="width:20%"></div></div><span class="pbar-val">3</span></div>
+        <div class="pbar-row"><span class="pbar-label">T</span><div class="pbar-track"><div class="pbar-fill terry" style="width:7%"></div></div><span class="pbar-val">1</span></div>
+        <div class="pbar-row"><span class="pbar-label">N</span><div class="pbar-track"><div class="pbar-fill nadene" style="width:27%"></div></div><span class="pbar-val">4</span></div>
+      </div>
+    </div>
+    <div class="month h1">
+      <div class="month-head"><span class="month-name">August</span></div>
+      <div class="dow"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+      <div class="week"><span class="day pad" style="grid-column:1"></span><span class="day pad" style="grid-column:2"></span><span class="day pad" style="grid-column:3"></span><span class="day pad" style="grid-column:4"></span><span class="day pad" style="grid-column:5"></span><span class="day" style="grid-column:6">1</span><span class="day" style="grid-column:7">2</span></div>
+      <div class="week"><div class="leave-bar marked" style="grid-column:4 / 6"></div><span class="day" style="grid-column:1">3</span><span class="day" style="grid-column:2">4</span><span class="day" style="grid-column:3">5</span><span class="day marked run-start" style="grid-column:4">6</span><span class="day marked run-end" style="grid-column:5">7</span><span class="day" style="grid-column:6">8</span><span class="day holiday" style="grid-column:7">9</span></div>
+      <div class="week"><span class="day holiday" style="grid-column:1">10</span><span class="day" style="grid-column:2">11</span><span class="day" style="grid-column:3">12</span><span class="day" style="grid-column:4">13</span><span class="day" style="grid-column:5">14</span><span class="day" style="grid-column:6">15</span><span class="day" style="grid-column:7">16</span></div>
+      <div class="week"><span class="day" style="grid-column:1">17</span><span class="day" style="grid-column:2">18</span><span class="day" style="grid-column:3">19</span><span class="day" style="grid-column:4">20</span><span class="day" style="grid-column:5">21</span><span class="day" style="grid-column:6">22</span><span class="day" style="grid-column:7">23</span></div>
+      <div class="week"><span class="day" style="grid-column:1">24</span><span class="day" style="grid-column:2">25</span><span class="day" style="grid-column:3">26</span><span class="day" style="grid-column:4">27</span><span class="day" style="grid-column:5">28</span><span class="day" style="grid-column:6">29</span><span class="day" style="grid-column:7">30</span></div>
+      <div class="week"><span class="day" style="grid-column:1">31</span><span class="day pad" style="grid-column:2"></span><span class="day pad" style="grid-column:3"></span><span class="day pad" style="grid-column:4"></span><span class="day pad" style="grid-column:5"></span><span class="day pad" style="grid-column:6"></span><span class="day pad" style="grid-column:7"></span></div>
+      <div class="pbars">
+        <div class="pbar-row"><span class="pbar-label">R</span><div class="pbar-track"><div class="pbar-fill ramo" style="width:13%"></div></div><span class="pbar-val">2</span></div>
+        <div class="pbar-row"><span class="pbar-label">T</span><div class="pbar-track"><div class="pbar-fill terry" style="width:20%"></div></div><span class="pbar-val">3</span></div>
+        <div class="pbar-row"><span class="pbar-label">N</span><div class="pbar-track"><div class="pbar-fill nadene" style="width:33%"></div></div><span class="pbar-val">5</span></div>
+      </div>
+    </div>
+    <div class="month h3 planned">
+      <div class="month-head"><span class="month-name">September</span></div>
+      <div class="dow"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+      <div class="week"><span class="day pad" style="grid-column:1"></span><span class="day" style="grid-column:2">1</span><span class="day" style="grid-column:3">2</span><span class="day" style="grid-column:4">3</span><span class="day" style="grid-column:5">4</span><span class="day" style="grid-column:6">5</span><span class="day" style="grid-column:7">6</span></div>
+      <div class="week"><div class="leave-bar planned" style="grid-column:4 / 6"></div><span class="day" style="grid-column:1">7</span><span class="day" style="grid-column:2">8</span><span class="day" style="grid-column:3">9</span><span class="day planned run-start" style="grid-column:4">10</span><span class="day planned run-end" style="grid-column:5">11</span><span class="day" style="grid-column:6">12</span><span class="day" style="grid-column:7">13</span></div>
+      <div class="week"><span class="day" style="grid-column:1">14</span><span class="day" style="grid-column:2">15</span><span class="day" style="grid-column:3">16</span><span class="day" style="grid-column:4">17</span><span class="day" style="grid-column:5">18</span><span class="day" style="grid-column:6">19</span><span class="day" style="grid-column:7">20</span></div>
+      <div class="week"><div class="leave-bar planned" style="grid-column:1 / 4"></div><span class="day planned run-start" style="grid-column:1">21</span><span class="day planned run-mid" style="grid-column:2">22</span><span class="day planned run-end" style="grid-column:3">23</span><span class="day holiday" style="grid-column:4">24</span><span class="day planned" style="grid-column:5">25</span><span class="day" style="grid-column:6">26</span><span class="day" style="grid-column:7">27</span></div>
+      <div class="week"><span class="day" style="grid-column:1">28</span><span class="day" style="grid-column:2">29</span><span class="day" style="grid-column:3">30</span><span class="day pad" style="grid-column:4"></span><span class="day pad" style="grid-column:5"></span><span class="day pad" style="grid-column:6"></span><span class="day pad" style="grid-column:7"></span></div>
+      <div class="pbars">
+        <div class="pbar-row"><span class="pbar-label">R</span><div class="pbar-track"><div class="pbar-fill planned" style="width:40%"></div></div><span class="pbar-val">6*</span></div>
+        <div class="pbar-row na"><span class="pbar-label">T</span><div class="pbar-track"></div><span class="pbar-val na">n/a</span></div>
+        <div class="pbar-row na"><span class="pbar-label">N</span><div class="pbar-track"></div><span class="pbar-val na">n/a</span></div>
+      </div>
+    </div>
+    <div class="month h0 planned">
+      <div class="month-head"><span class="month-name">October</span></div>
+      <div class="dow"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+      <div class="week"><span class="day pad" style="grid-column:1"></span><span class="day pad" style="grid-column:2"></span><span class="day pad" style="grid-column:3"></span><span class="day" style="grid-column:4">1</span><span class="day" style="grid-column:5">2</span><span class="day" style="grid-column:6">3</span><span class="day" style="grid-column:7">4</span></div>
+      <div class="week"><span class="day" style="grid-column:1">5</span><span class="day" style="grid-column:2">6</span><span class="day" style="grid-column:3">7</span><span class="day" style="grid-column:4">8</span><span class="day" style="grid-column:5">9</span><span class="day" style="grid-column:6">10</span><span class="day" style="grid-column:7">11</span></div>
+      <div class="week"><span class="day" style="grid-column:1">12</span><span class="day" style="grid-column:2">13</span><span class="day" style="grid-column:3">14</span><span class="day" style="grid-column:4">15</span><span class="day" style="grid-column:5">16</span><span class="day" style="grid-column:6">17</span><span class="day" style="grid-column:7">18</span></div>
+      <div class="week"><span class="day" style="grid-column:1">19</span><span class="day" style="grid-column:2">20</span><span class="day" style="grid-column:3">21</span><span class="day" style="grid-column:4">22</span><span class="day" style="grid-column:5">23</span><span class="day" style="grid-column:6">24</span><span class="day" style="grid-column:7">25</span></div>
+      <div class="week"><span class="day" style="grid-column:1">26</span><span class="day" style="grid-column:2">27</span><span class="day" style="grid-column:3">28</span><span class="day" style="grid-column:4">29</span><span class="day" style="grid-column:5">30</span><span class="day" style="grid-column:6">31</span><span class="day pad" style="grid-column:7"></span></div>
+      <div class="pbars">
+        <div class="pbar-row"><span class="pbar-label">R</span><div class="pbar-track"><div class="pbar-fill planned" style="width:0%"></div></div><span class="pbar-val">0*</span></div>
+        <div class="pbar-row na"><span class="pbar-label">T</span><div class="pbar-track"></div><span class="pbar-val na">n/a</span></div>
+        <div class="pbar-row na"><span class="pbar-label">N</span><div class="pbar-track"></div><span class="pbar-val na">n/a</span></div>
+      </div>
+    </div>
+    <div class="month h0 planned">
+      <div class="month-head"><span class="month-name">November</span></div>
+      <div class="dow"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+      <div class="week"><span class="day pad" style="grid-column:1"></span><span class="day pad" style="grid-column:2"></span><span class="day pad" style="grid-column:3"></span><span class="day pad" style="grid-column:4"></span><span class="day pad" style="grid-column:5"></span><span class="day pad" style="grid-column:6"></span><span class="day" style="grid-column:7">1</span></div>
+      <div class="week"><span class="day" style="grid-column:1">2</span><span class="day" style="grid-column:2">3</span><span class="day" style="grid-column:3">4</span><span class="day" style="grid-column:4">5</span><span class="day" style="grid-column:5">6</span><span class="day" style="grid-column:6">7</span><span class="day" style="grid-column:7">8</span></div>
+      <div class="week"><span class="day" style="grid-column:1">9</span><span class="day" style="grid-column:2">10</span><span class="day" style="grid-column:3">11</span><span class="day" style="grid-column:4">12</span><span class="day" style="grid-column:5">13</span><span class="day" style="grid-column:6">14</span><span class="day" style="grid-column:7">15</span></div>
+      <div class="week"><span class="day" style="grid-column:1">16</span><span class="day" style="grid-column:2">17</span><span class="day" style="grid-column:3">18</span><span class="day" style="grid-column:4">19</span><span class="day" style="grid-column:5">20</span><span class="day" style="grid-column:6">21</span><span class="day" style="grid-column:7">22</span></div>
+      <div class="week"><span class="day" style="grid-column:1">23</span><span class="day" style="grid-column:2">24</span><span class="day" style="grid-column:3">25</span><span class="day" style="grid-column:4">26</span><span class="day" style="grid-column:5">27</span><span class="day" style="grid-column:6">28</span><span class="day" style="grid-column:7">29</span></div>
+      <div class="week"><span class="day" style="grid-column:1">30</span><span class="day pad" style="grid-column:2"></span><span class="day pad" style="grid-column:3"></span><span class="day pad" style="grid-column:4"></span><span class="day pad" style="grid-column:5"></span><span class="day pad" style="grid-column:6"></span><span class="day pad" style="grid-column:7"></span></div>
+      <div class="pbars">
+        <div class="pbar-row"><span class="pbar-label">R</span><div class="pbar-track"><div class="pbar-fill planned" style="width:0%"></div></div><span class="pbar-val">0*</span></div>
+        <div class="pbar-row na"><span class="pbar-label">T</span><div class="pbar-track"></div><span class="pbar-val na">n/a</span></div>
+        <div class="pbar-row na"><span class="pbar-label">N</span><div class="pbar-track"></div><span class="pbar-val na">n/a</span></div>
+      </div>
+    </div>
+    <div class="month h3 planned">
+      <div class="month-head"><span class="month-name">December</span></div>
+      <div class="dow"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+      <div class="week"><span class="day pad" style="grid-column:1"></span><span class="day" style="grid-column:2">1</span><span class="day" style="grid-column:3">2</span><span class="day" style="grid-column:4">3</span><span class="day" style="grid-column:5">4</span><span class="day" style="grid-column:6">5</span><span class="day" style="grid-column:7">6</span></div>
+      <div class="week"><span class="day" style="grid-column:1">7</span><span class="day" style="grid-column:2">8</span><span class="day" style="grid-column:3">9</span><span class="day" style="grid-column:4">10</span><span class="day" style="grid-column:5">11</span><span class="day" style="grid-column:6">12</span><span class="day" style="grid-column:7">13</span></div>
+      <div class="week"><span class="day" style="grid-column:1">14</span><span class="day" style="grid-column:2">15</span><span class="day holiday" style="grid-column:3">16</span><span class="day" style="grid-column:4">17</span><span class="day" style="grid-column:5">18</span><span class="day" style="grid-column:6">19</span><span class="day" style="grid-column:7">20</span></div>
+      <div class="week"><div class="leave-bar planned" style="grid-column:1 / 5"></div><span class="day planned run-start" style="grid-column:1">21</span><span class="day planned run-mid" style="grid-column:2">22</span><span class="day planned run-mid" style="grid-column:3">23</span><span class="day planned run-end" style="grid-column:4">24</span><span class="day holiday" style="grid-column:5">25</span><span class="day holiday" style="grid-column:6">26</span><span class="day" style="grid-column:7">27</span></div>
+      <div class="week"><div class="leave-bar planned" style="grid-column:1 / 5"></div><span class="day planned run-start" style="grid-column:1">28</span><span class="day planned run-mid" style="grid-column:2">29</span><span class="day planned run-mid" style="grid-column:3">30</span><span class="day planned run-end" style="grid-column:4">31</span><span class="day pad" style="grid-column:5"></span><span class="day pad" style="grid-column:6"></span><span class="day pad" style="grid-column:7"></span></div>
+      <div class="pbars">
+        <div class="pbar-row"><span class="pbar-label">R</span><div class="pbar-track"><div class="pbar-fill planned" style="width:53%"></div></div><span class="pbar-val">8*</span></div>
+        <div class="pbar-row na"><span class="pbar-label">T</span><div class="pbar-track"></div><span class="pbar-val na">n/a</span></div>
+        <div class="pbar-row na"><span class="pbar-label">N</span><div class="pbar-track"></div><span class="pbar-val na">n/a</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Note -->
+<div class="note">
+  <strong>Note on methodology:</strong> Days are counted as working days only (Mon–Fri), excluding South African public holidays visible in the calendar (New Year's Day, Human Rights Day, Good Friday, Family Day, Freedom Day, Workers' Day, Youth Day, National Women's Day, Heritage Day, Day of Reconciliation, Christmas Day, Day of Goodwill). Leave types included: Annual Leave, Flexi-Leave, and Sick Leave. "Flexi" single-day entries are counted as 1 working day each. 2026 figures now cover January–August for all three, read directly from the Team Absence Calendar (own view for Ramo, peer view for Taylor Bennett and Nina Brooks). Exact day-level markers on the calendar grid are shown for Ramo only, since his own-calendar audit confirmed individual dates; Taylor and Nina's June–August figures are accurate monthly totals from clearly legible date-range blocks (e.g. Taylor 22–26 Jun, Nina 10–14 Aug) but aren't marked day-by-day on the shared grid. Ramo's August figure reflects the confirmed 6–7 Aug break, replacing an earlier-proposed 10–14 Aug week that was not taken. September–December 2026 remain unlogged for Taylor and Nina. For Ramo, September and December show <strong>planned</strong> (not yet taken) leave in a lighter green, sourced from the 2026 leave plan: 10, 11, 21, 22, 23 &amp; 25 Sep (10–11 Sep added separately, plus the Heritage Day bridge, 6 days total) and 21, 22, 23, 24, 28, 29, 30 &amp; 31 Dec (extended by 21 Dec and 28 Dec, plus the NYC/Miami/Caribbean trip, 8 days total). October and November show no planned leave. Figures and bars marked with an asterisk (*) are planned/projected, not confirmed actuals, and should not be read as logged leave. <strong>Note:</strong> actual (28) plus planned (14) totals 42 days against the 40-day annual budget — 2 days over.
+</div>
+
+</body>
+</html>
